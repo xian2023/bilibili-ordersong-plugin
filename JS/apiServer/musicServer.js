@@ -6,9 +6,10 @@ export{ musicServer, qqmusicServer}
 /* 歌曲API服务 */
 const musicServer = {
     
-    // 服务器地址
+    // 服务器地址 gitpage 需要https服务器
     // baseUrl: "http://plugin.changsheng.space:3000",
-    baseUrl: "https://autumnfish.cn",
+    // baseUrl: "https://zmusic.i9mr.com",
+    baseUrl: "https://zm.armoe.cn",
     
     /* 发送验证码 
         @param phone 手机号
@@ -93,6 +94,7 @@ const musicServer = {
         await axios({
             method: "get",
             url: this.baseUrl + "/login/qr/key",
+            withCredentials : true,
             params:{
                 timestamp: Date.now(),
             }
@@ -111,6 +113,7 @@ const musicServer = {
         await axios({
             method: "get",
             url: this.baseUrl + "/login/qr/create",
+            withCredentials : true,
             params: {
                 key: key,
                 qrimg: true,
@@ -131,6 +134,7 @@ const musicServer = {
         await axios({
             method: "get",
             url: this.baseUrl + "/login/qr/check",
+            withCredentials : true,
             params: {
                 key: key,
                 timestamp: Date.now(),
