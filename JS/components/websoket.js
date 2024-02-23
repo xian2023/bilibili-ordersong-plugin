@@ -172,10 +172,10 @@ export const webSocket = {
 
         // 设置鉴权包 
         let authInfo = {
-            'uid': 352905327,
+            'uid': config.adminId,
             'roomid': parseInt(this.roomId, 10),
             'protover': 2,
-            'platform': 'web',
+            'platform': 'danmuji',
             'clientver': '1.8.5',
             'type': 2,
         }
