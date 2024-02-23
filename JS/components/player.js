@@ -49,7 +49,8 @@ export const player = {
         // 根据歌曲信息，获取歌曲链接
         let url = null;
         if(song.platform && song.platform == "qq"){
-            url = await qqmusicServer.getSongUrl(song.sid);
+            url = song.url;
+            // url = await qqmusicServer.getSongUrl(song.sid);
         }else{
             url = await musicServer.getSongUrl(song.sid);
         }

@@ -323,7 +323,7 @@ const musicServer = {
 const qqmusicServer = {
     
     // https://github.com/jsososo/QQMusicApi
-    baseUrl: "http://121.40.145.21:33422",
+    baseUrl: "https://zj.v.api.aa1.cn/api/qqmusic/demo.php",
     /* 搜索歌曲信息 
         @param keyword 关键词
     */
@@ -331,24 +331,25 @@ const qqmusicServer = {
         let song = null;
         await axios({
             method: "get",
-            url: this.baseUrl +"/search",
+            url: this.baseUrl +"",
             params: {
-                key: keyword,
-                pageSize: 5,
-                pageNo: 1,
-                t:0
+                type:1,
+                q: keyword,
+                n: 5,
+                p: 1,
             }
         }).then(function (resp) {
             // 获取歌曲列表
-            let songs = resp.data.data.list;
+            let songs = resp.data.list;
             if(songs.length > 0){
                 // 封装歌曲信息
                 song = {
                     platform: "qq",
-                    sid: songs[0].songmid,
-                    sname: songs[0].songname,
-                    sartist:songs[0].singer[0].name,
-                    duration: songs[0].interval
+                    sid: 0,
+                    sname: songs[0].name,
+                    sartist:songs[0].singer,
+                    url:songs[0].url,
+                    duration: 1
                 };
             }
         }).catch(function(error){
@@ -356,66 +357,95 @@ const qqmusicServer = {
         });
         return song;
     },
+    // getSongInfo: async function(keyword){
+    //     let song = null;
+    //     await axios({
+    //         method: "get",
+    //         url: this.baseUrl +"/search",
+    //         params: {
+    //             key: keyword,
+    //             pageSize: 5,
+    //             pageNo: 1,
+    //             t:0
+    //         }
+    //     }).then(function (resp) {
+    //         // 获取歌曲列表
+    //         let songs = resp.data.data.list;
+    //         if(songs.length > 0){
+    //             // 封装歌曲信息
+    //             song = {
+    //                 platform: "qq",
+    //                 sid: songs[0].songmid,
+    //                 sname: songs[0].songname,
+    //                 sartist:songs[0].singer[0].name,
+    //                 duration: songs[0].interval
+    //             };
+    //         }
+    //     }).catch(function(error){
+    //         musicMethod.pageAlert(error.message);
+    //     });
+    //     return song;
+    // },
 
     /* 获取播放链接
         @param    
     */
-    getSongUrl: async function(songmid){
-        let url = null;
-        await axios({
-            method: "get",
-            url: this.baseUrl + "/song/url",
-            params: {
-                id: songmid
-            }
-        }).then(function (resp) {
-            if(resp.data.result == 100){
-                // 获取对象的所有键
-                url = resp.data.data;
-            }else{
-                console.log(resp.data);
-                musicMethod.pageAlert("链接获取失败");
-            }
-        }).catch(function(error){
-            musicMethod.pageAlert(error.message);
-        });
-        return url;
-    },
+    // getSongUrl: async function(songmid){
+    //     let url = null;
+    //     await axios({
+    //         method: "get",
+    //         url: this.baseUrl + "/song/url",
+    //         params: {
+    //             id: songmid
+    //         }
+    //     }).then(function (resp) {
+    //         if(resp.data.result == 100){
+    //             // 获取对象的所有键
+    //             url = resp.data.data;
+    //         }else{
+    //             console.log(resp.data);
+    //             musicMethod.pageAlert("链接获取失败");
+    //         }
+    //     }).catch(function(error){
+    //         musicMethod.pageAlert(error.message);
+    //     });
+    //     return url;
+    // },
 
-    /* 设置cookie
-        param qqcookie QQ音乐cookie
-    */
-    setCookie: async function(cookie){
-        await axios({
-            method: "post",
-            url: this.baseUrl + "/user/setCookie",
-            data: {
-                data: cookie,
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        }).then(function (resp) {
-            musicMethod.pageAlert("cookie设置成功！");
+    // /* 设置cookie
+    //     param qqcookie QQ音乐cookie
+    // */
+    // setCookie: async function(cookie){
+    //     await axios({
+    //         method: "post",
+    //         url: this.baseUrl + "/user/setCookie",
+    //         data: {
+    //             data: cookie,
+    //         },
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //     }).then(function (resp) {
+    //         musicMethod.pageAlert("cookie设置成功！");
             
-        }).catch(function(error){
-            musicMethod.pageAlert("cookie设置失败！");
-        });
-    },
-    /* 获取cookie
-        param qq qq号
-    */
-    getCookie: async function(qq){
-        await axios({
-            method: "get",
-            url: this.baseUrl + "/user/getCookie",
-            params: {
-                id: qq,
-            },
-        }).then(function (resp) {
-            musicMethod.pageAlert("获取cookie成功！");
-        }).catch(function(error){
-            musicMethod.pageAlert("获取cookie失败！");
-        });
-    },
+    //     }).catch(function(error){
+    //         musicMethod.pageAlert("cookie设置失败！");
+    //     });
+    // },
+    // /* 获取cookie
+    //     param qq qq号
+    // */
+    // getCookie: async function(qq){
+    //     await axios({
+    //         method: "get",
+    //         url: this.baseUrl + "/user/getCookie",
+    //         params: {
+    //             id: qq,
+    //         },
+    //     }).then(function (resp) {
+    //         musicMethod.pageAlert("获取cookie成功！");
+    //     }).catch(function(error){
+    //         musicMethod.pageAlert("获取cookie失败！");
+    //     });
+    // },
 }

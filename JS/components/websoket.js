@@ -323,6 +323,10 @@ export const webSocket = {
             // 如果当前点歌列表第一首是空闲歌单，则播放下一首
             if(player.orderList.length > 0 && player.orderList[0].uname == "私人FM"){
                 player.playNext();
+            }else if(player.orderList.length == 1 )
+            {
+                // 只有刚点的这首就 开始播放
+                player.play(song);
             }
         }else if (danmu == "切歌") { 
             // 切歌命令，触发切歌流程
