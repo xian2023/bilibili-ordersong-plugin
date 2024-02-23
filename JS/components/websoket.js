@@ -326,7 +326,8 @@ export const webSocket = {
             }
         }else if (danmu == "切歌") { 
             // 切歌命令，触发切歌流程
-            if(player.orderList[0].uid == userDanmu.uid || userDanmu.uid == config.adminId || userDanmu.uid == config.adminId2){
+            const flag = config.adminList.find((admin) => admin == userDanmu.uid);
+            if(flag || player.orderList[0].uid == userDanmu.uid || userDanmu.uid == config.adminId || userDanmu.uid == config.adminId2){
                 // 如果当前播放的是该用户的歌曲，或者发送命令的是管理员，则播放下一首歌曲
                 player.playNext();
             }else{
