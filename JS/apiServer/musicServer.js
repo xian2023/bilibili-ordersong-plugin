@@ -7,7 +7,8 @@ export{ musicServer, qqmusicServer}
 const musicServer = {
     
     // 服务器地址
-    baseUrl: "http://plugin.changsheng.space:3000",
+    // baseUrl: "http://plugin.changsheng.space:3000",
+    baseUrl: "https://autumnfish.cn",
     
     /* 发送验证码 
         @param phone 手机号
