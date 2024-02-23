@@ -25,7 +25,7 @@ body, html{
 }
 
 .orderTable{
-    width: 300px;
+    width: 320px;
     margin-top: 20px;
     border-radius: 10px;
     background: #0202027e;
@@ -144,26 +144,39 @@ body, html{
 }
 
 /* 配置按钮样式 */
-#setting{
-    width: 0px;
-    border: 0;
-    padding: 0px;
-    font-weight: bolder;
-    border-radius: 5px;
+.setting {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translateX(-50%);
+    width: 200px; /* 根据需要调整总宽度 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 999;
+}
+
+.main:hover .setting,
+.setting:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.setting-btn {
+    width: 80px; /* 设置初始宽度 */
+    border: 0;
+    padding: 10px; /* 根据需要调整内边距，使按钮看起来不那么窄 */
+    font-weight: bolder;
+    border-radius: 5px;
     white-space: nowrap;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: .5s;
 }
-.main:hover #setting{
-    width: 100px;
-}
-#setting:hover{
+
+.setting-btn:hover{
     background: rgb(235, 152, 152);
 }
 

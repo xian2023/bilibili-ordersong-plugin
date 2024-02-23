@@ -96,7 +96,7 @@ export const player = {
         this.audio.play();
     },
     // 播放下一首
-    playNext: function(){
+    playNext:async function(){
         if(this.orderList.length > 0){
             // 若点歌列表存在歌曲，则删除第一首
             this.orderList.shift();
@@ -106,26 +106,16 @@ export const player = {
         if(!this.orderList.length){
             // 若点歌列表没有歌曲，则随机播放空闲歌单的歌曲
             if(!this.freeList.length){
-                musicMethod.pageAlert("没有下一首可以放了>_<!");
-                return;
-            }
-            // 随机检测，减小重复记率
-            while(true)
-            {
-                this.freeIndex = parseInt(Math.random() * this.freeList.length, 10);
-                if(!this.randomList.includes(this.freeIndex))
-                {
-                    // 在末尾添加随机记录
-                    this.randomList.push(this.freeIndex);
-                    // 如果随机记录大于一半，就删除第一个，(队列结构)
-                    if(this.randomList.length > this.freeList.length / 2)
-                    {
-                        this.randomList.shift();
-                    }
-                    break;
+                // musicMethod.pageAlert("没有下一首可以放了>_<!");
+                // 没有就去获取私人fm
+                let songList = await musicServer.getPersonalFM();
+                if(!songList.length){
+                    // musicMethod.pageAlert("获取失败!");
+                    return;
                 }
+                this.freeList = songList;
             }
-            this.addOrder(this.freeList[this.freeIndex++]);
+            this.addOrder(this.freeList.shift());
         }
         
         // 播放当前第一首歌曲
@@ -179,4 +169,4 @@ export const player = {
     }
 }
 
-
+window.player = player;

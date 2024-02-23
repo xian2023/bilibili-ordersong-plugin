@@ -256,18 +256,19 @@ const musicServer = {
         let songList = new Array();
         await axios({
             method: "get",
-            url: this.baseUrl + "/playlist/track/all",
+            url: this.baseUrl + "/playlist/detail",
             params: {
                 cookie: config.cookie,
                 id: listId
             }
         }).then(function (resp) {
-            let songs = resp.data.songs;
+            let list = resp.data.playlist
+            let songs = list.tracks;
             // 获取歌单的所有歌曲
             for(let i = 0; i < songs.length; i++){
                 let song = {
-                    uid: 123456,
-                    uname: "空闲歌单",
+                    uid: list.id,
+                    uname: list.name,
                     song: {
                         platform: "wy",
                         sid: songs[i].id,
@@ -282,7 +283,36 @@ const musicServer = {
         });
         return songList;
     },
-    
+    // 私人FM 就不用找歌单了
+    getPersonalFM: async function(){
+        let songList = new Array();
+        await axios({
+            method: "get",
+            url: this.baseUrl + "/personal_fm",
+            params: {
+                cookie: config.cookie,
+            }
+        }).then(function (resp) {
+            let songs = resp.data.data;
+            //获取歌单的所有歌曲
+            for(let i = 0; i < songs.length; i++){
+                let song = {
+                    uid: '12345',
+                    uname: "私人FM",
+                    song: {
+                        platform: "wy",
+                        sid: songs[i].id,
+                        sname:songs[i].name,
+                        sartist:songs[i].album.artists[0].name
+                    }
+                }
+                songList.push(song);
+            }
+        }).catch(function(error){
+            console.log("私人FM歌曲信息获取失败!", error.response);
+        });
+        return songList;
+    },
 }
 
 const qqmusicServer = {

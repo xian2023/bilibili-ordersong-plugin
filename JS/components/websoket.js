@@ -321,12 +321,12 @@ export const webSocket = {
             // 添加点歌信息到点歌列表  
             player.addOrder(order);
             // 如果当前点歌列表第一首是空闲歌单，则播放下一首
-            if(player.orderList.length > 0 && player.orderList[0].uname == "空闲歌单"){
+            if(player.orderList.length > 0 && player.orderList[0].uname == "私人FM"){
                 player.playNext();
             }
         }else if (danmu == "切歌") { 
             // 切歌命令，触发切歌流程
-            if(player.orderList[0].uid == userDanmu.uid || userDanmu.uid == config.adminId){
+            if(player.orderList[0].uid == userDanmu.uid || userDanmu.uid == config.adminId || userDanmu.uid == config.adminId2){
                 // 如果当前播放的是该用户的歌曲，或者发送命令的是管理员，则播放下一首歌曲
                 player.playNext();
             }else{
