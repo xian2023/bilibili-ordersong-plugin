@@ -174,7 +174,7 @@ export const webSocket = {
         let authInfo = {
             'uid': config.adminId,
             'roomid': parseInt(this.roomId, 10),
-            'protover': 2,
+            'protover': 1,
             'platform': 'danmuji',
             'clientver': '1.8.5',
             'type': 2,
