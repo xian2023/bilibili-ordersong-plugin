@@ -173,7 +173,7 @@ export const webSocket = {
         // 设置鉴权包 
         let authInfo = {
             // 长UID的B站识别不出来
-            'uid': 0,
+            'uid': 1568568,
             'roomid': parseInt(this.roomId, 10),
             'protover': 2,
             'platform': 'danmuji',
